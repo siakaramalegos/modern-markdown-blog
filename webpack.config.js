@@ -1,5 +1,6 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 module.exports = {
   entry: './src/index.js',
@@ -13,6 +14,7 @@ module.exports = {
     overlay: true, // show errors in browser
   },
   plugins: [
+    new CleanWebpackPlugin(['build']),
     new HTMLWebpackPlugin({title: 'Blog  |  Home'})
   ]
 }
