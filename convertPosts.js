@@ -4,13 +4,6 @@ const Remarkable = require('remarkable')
 const hljs = require('highlight.js')
 const ejs = require('ejs')
 
-// Layout file to use for all posts
-const layout = fs.readFileSync(path.resolve(__dirname, './posts/layout.ejs'), 'utf8')
-// const layout = require('./posts/layout.ejs')
-
-// Sample markdown post file
-const mdFile = fs.readFileSync(path.resolve(__dirname, './posts/my_post.md'), 'utf8')
-
 // Initialize markdown function with syntax highlighting by highlight.js
 var md = new Remarkable({
   highlight: function (str, lang) {
@@ -19,22 +12,47 @@ var md = new Remarkable({
         return hljs.highlight(lang, str).value;
       } catch (err) { }
     }
-
     try {
       return hljs.highlightAuto(str).value;
     } catch (err) { }
-
     return ''; // use external default escaping
   }
 });
 
-// Convert sample markdown file to html
-const markdown = md.render(`${mdFile}`)
+// Layout file to use for all posts
+const layout = fs.readFileSync(path.resolve(__dirname, './posts/layout.ejs'), 'utf8')
 
-// Data associated with sample post
-const context = {title: 'My First Post', body: String(markdown)}
+// Data representing all posts
+const postData = require('./postData.json')
+// TODO: check for duplicate slugged titles
 
-// Generate the full html for the sample post's page using its data
-const html = ejs.render(layout, context)
+// Generate url-friendly html file names
+function slugify(text) {
+  return text.toString().toLowerCase()
+    .replace(/\s+/g, '_')           // Replace spaces with -
+    .replace(/&/g, '-and-')         // Replace & with 'and'
+    .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+    .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+    .replace(/^-+/, '')             // Trim - from start of text
+    .replace(/-+$/, '');            // Trim - from end of text
+}
 
-console.log(html);
+// Construct html file for each post
+postData.forEach((data) => {
+  const {file, title, ...rest} = data
+  const mdFile = fs.readFileSync(path.resolve(__dirname, `./posts/${file}`), 'utf8')
+  // Convert markdown file to html
+  const markdown = md.render(`${mdFile}`)
+
+  // Generate the full html for the post's page using its data
+  const html = ejs.render(layout, { body: String(markdown), title, ...rest})
+
+  fs.writeFile(`./src/blog/${slugify(title)}.html`, html, function (err) {
+    if (err) {
+      return console.log(err);
+    }
+  });
+  return html
+})
+
+// console.log(html);
