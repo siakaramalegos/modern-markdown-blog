@@ -22,7 +22,7 @@ The goals:
   ---
   ```
 3. Generate your posts with `npm run generate`. This will not delete stale posts. You must manually delete them. Also, it will overwrite posts with the same name.
-4. [TODO: Run webpack to create the build - currently doesn't manage the new html files in `src/blog/`]
+4. Build with webpack! Run development mode with `npm start` and view the output at http://localhost:8080, or run the production build with `npm run build`. The `/build/` folder will contain the static production build ready for deployment.
 
 ## Contributing
 
