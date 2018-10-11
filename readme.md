@@ -2,6 +2,12 @@
 
 This is a markdown blog starter with a modern build process to create super-fast website with as little JavaScript as possible. Think of it like Jekyll + webpack.
 
+The goals:
+- Write blog posts in markdown because it's more fun.
+- Automatically generate the blog post pages.
+- Automatically generate the blog post index page.
+- Use as little runtime JavaScript as possible (preferably none).
+
 ## How to Use
 
 1. Write your markdown post in the `/posts/` folder.
