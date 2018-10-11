@@ -37,22 +37,25 @@ function slugify(text) {
     .replace(/-+$/, '');            // Trim - from end of text
 }
 
+// TODO: generate blog index page in reverse chrono order
+// TODO: maybe use webpack to build <head></head>, etc.
+
+
 // Construct html file for each post
 postData.forEach((data) => {
   const {file, title, ...rest} = data
   const mdFile = fs.readFileSync(path.resolve(__dirname, `./posts/${file}`), 'utf8')
   // Convert markdown file to html
   const markdown = md.render(`${mdFile}`)
-
   // Generate the full html for the post's page using its data
   const html = ejs.render(layout, { body: String(markdown), title, ...rest})
 
+  // Note: this is async - need to write for sync or wait until complete to chain other actions
   fs.writeFile(`./src/blog/${slugify(title)}.html`, html, function (err) {
     if (err) {
       return console.log(err);
     }
   });
-  return html
 })
 
-// console.log(html);
+console.log('Finished converting posts!');
