@@ -4,6 +4,7 @@
   "description": "personal website and blog for sia",
   "private": true,
   "scripts": {
+    "generate": "node convertPosts.js",
     "start": "webpack-dev-server --mode development",
     "build": "webpack --config webpack.config.js --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"
