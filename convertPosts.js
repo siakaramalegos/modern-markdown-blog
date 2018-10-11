@@ -1,4 +1,6 @@
 const fs = require('fs')
+const glob = require('glob')
+const fm = require('front-matter')
 const path = require('path')
 const Remarkable = require('remarkable')
 const hljs = require('highlight.js')
@@ -19,12 +21,8 @@ var md = new Remarkable({
   }
 });
 
-// Layout file to use for all posts
-const layout = fs.readFileSync(path.resolve(__dirname, './posts/layout.ejs'), 'utf8')
-
-// Data representing all posts
-const postData = require('./postData.json')
-// TODO: check for duplicate slugged titles
+// Post layout file to use for all posts
+const postLayout = fs.readFileSync(path.resolve(__dirname, './layouts/post.ejs'), 'utf8')
 
 // Generate url-friendly html file names
 function slugify(text) {
@@ -39,23 +37,28 @@ function slugify(text) {
 
 // TODO: generate blog index page in reverse chrono order
 // TODO: maybe use webpack to build <head></head>, etc.
+// TODO: check for duplicate slugged titles
 
+glob('**/*.md', {cwd: './posts/'}, function(err, files) {
+  if (err) throw err
 
-// Construct html file for each post
-postData.forEach((data) => {
-  const {file, title, ...rest} = data
-  const mdFile = fs.readFileSync(path.resolve(__dirname, `./posts/${file}`), 'utf8')
-  // Convert markdown file to html
-  const markdown = md.render(`${mdFile}`)
-  // Generate the full html for the post's page using its data
-  const html = ejs.render(layout, { body: String(markdown), title, ...rest})
+  // Construct html file for each post
+  files.forEach((file) => {
+    fs.readFile(path.resolve(__dirname, `./posts/${file}`), 'utf8', function (err, data) {
+      if (err) throw err
 
-  // Note: this is async - need to write for sync or wait until complete to chain other actions
-  fs.writeFile(`./src/blog/${slugify(title)}.html`, html, function (err) {
-    if (err) {
-      return console.log(err);
-    }
-  });
+      // Separate the front matter attributes from the body of the markdown
+      const {attributes, body} = fm(data)
+
+      // Convert markdown body to html
+      const htmlBody = md.render(body)
+
+      // Generate the full post body (adds title, date, etc)
+      const post = ejs.render(postLayout, { body: String(htmlBody), ...attributes})
+
+      fs.writeFileSync(`./src/blog/${slugify(attributes.title)}.html`, post)
+      console.log(`Finished converting ${attributes.title}!`);
+    })
+  })
 })
 
-console.log('Finished converting posts!');

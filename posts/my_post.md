@@ -1,3 +1,9 @@
+---
+title: My first post
+file: my_post.md
+publishDate: 2018-10-31
+description: A sample blog post for testing this build tool
+---
 Hey there this is a test post.
 
 - I am
