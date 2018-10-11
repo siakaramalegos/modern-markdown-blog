@@ -12,7 +12,15 @@ The goals:
 ## How to Use
 
 1. Write your markdown post in the `/posts/` folder.
-2. Provide data for that post in the `postData.json` file. Currently, this is not sorted, so put newer posts at the top.
+2. At the top of your file, include the following data in YAML front matter:
+  ```yaml
+  ---
+  title: My first post
+  file: my_post.md
+  publishDate: 2018-10-31
+  description: A sample blog post for testing this build tool
+  ---
+  ```
 3. Generate your posts with `npm run generate`. This will not delete stale posts. You must manually delete them. Also, it will overwrite posts with the same name.
 4. [TODO: Run webpack to create the build - currently doesn't manage the new html files in `src/blog/`]
 
