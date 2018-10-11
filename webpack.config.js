@@ -1,6 +1,6 @@
 const path = require('path');
-const HTMLWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+const nodeModulesPath = path.resolve(__dirname, 'node_modules');
 
 module.exports = {
   entry: './src/index.js',
@@ -24,6 +24,18 @@ module.exports = {
           }},
         ]
       },
+      {
+        test: /\.html$/,
+        exclude: [nodeModulesPath],
+        use: [
+          {
+            loader: 'file-loader',
+            options: { name: '[path][name].[ext]', context: 'src' }
+          },
+          'extract-loader',
+          { loader: 'html-loader', options: { minimize: true } },
+        ]
+      },
     ],
   },
   devServer: {
@@ -33,6 +45,5 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(['build']),
-    new HTMLWebpackPlugin({title: 'Blog  |  Home'})
   ]
 }
