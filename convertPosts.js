@@ -21,9 +21,6 @@ var md = new Remarkable({
   }
 });
 
-// Post layout file to use for all posts
-const postLayout = fs.readFileSync(path.resolve(__dirname, './layouts/post.ejs'), 'utf8')
-
 // Generate url-friendly html file names
 function slugify(text) {
   return text.toString().toLowerCase()
@@ -54,10 +51,11 @@ glob('**/*.md', {cwd: './posts/'}, function(err, files) {
       const htmlBody = md.render(body)
 
       // Generate the full post body (adds title, date, etc)
-      const post = ejs.render(postLayout, { body: String(htmlBody), ...attributes})
-
-      fs.writeFileSync(`./src/blog/${slugify(attributes.title)}.html`, post)
-      console.log(`Finished converting ${attributes.title}!`);
+      ejs.renderFile('./layouts/post.ejs', { body: String(htmlBody), ...attributes}, function(err, post) {
+        if (err) throw err
+        fs.writeFileSync(`./src/blog/${slugify(attributes.title)}.html`, post)
+        console.log(`Finished converting ${attributes.title}!`);
+      })
     })
   })
 })

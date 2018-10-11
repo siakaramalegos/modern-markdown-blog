@@ -11,12 +11,15 @@
 </head>
 
 <body>
-  <h1>
-    <%= title %>
-  </h1>
-  <small>
-    <%= publishDate %></small>
+  <%- include('../partials/navbar') %>
+
+  <h1><%= title %></h1>
+  <small><%= publishDate %></small>
+
   <%- body %>
+
+  <%- include('../partials/footer') %>
+
 </body>
 
 </html>
