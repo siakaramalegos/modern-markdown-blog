@@ -7,6 +7,7 @@ The goals:
 - Automatically generate the blog post pages.
 - Automatically generate the blog post index page.
 - Use as little runtime JavaScript as possible (preferably none).
+- Make it as fast as possible (e.g., automatically generate responsive images and perhaps webp formats too)
 
 ## How to Use
 
