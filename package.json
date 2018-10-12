@@ -7,7 +7,7 @@
     "generate": "node convertPosts.js",
     "start": "webpack-dev-server --mode development",
     "build": "webpack --mode production --optimize-minimize",
-    "gh-pages": "ASSET_PATH=modern-markdown-blog webpack --mode production --optimize-minimize && gh-pages -d build",
+    "gh-pages": "ASSET_PATH=/modern-markdown-blog webpack --mode production --optimize-minimize && gh-pages -d build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Sia Karamalegos",

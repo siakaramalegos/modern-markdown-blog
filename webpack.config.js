@@ -33,7 +33,7 @@ module.exports = {
         use: [
           {
             loader: 'file-loader',
-            options: { name: '[path][name].[ext]', context: 'src' }
+            options: { name: '[name].[ext]' }
           },
           'extract-loader',
           { loader: 'html-loader', options: { minimize: true } },
@@ -46,8 +46,7 @@ module.exports = {
             loader: 'url-loader', // default fallback is file-loader
             options: {
               limit: 8000,
-              name: '[path][name].[hash].[ext]',
-              // context: 'src',
+              name: '/images[name].[hash].[ext]',
             },
           },
         ],
@@ -58,8 +57,7 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: '[path][name].[hash].[ext]',
-              // context: 'src',
+              name: '/images/[name].[hash].[ext]',
             }
           },
         ],
