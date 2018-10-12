@@ -33,8 +33,9 @@ function slugify(text) {
 }
 
 // TODO: generate blog index page in reverse chrono order
-// TODO: maybe use webpack to build <head></head>, etc.
 // TODO: check for duplicate slugged titles
+
+let blogData = []
 
 glob('**/*.md', {cwd: './posts/'}, function(err, files) {
   if (err) throw err
@@ -46,17 +47,32 @@ glob('**/*.md', {cwd: './posts/'}, function(err, files) {
 
       // Separate the front matter attributes from the body of the markdown
       const {attributes, body} = fm(data)
+      const slug = slugify(attributes.title)
+      blogData.push({
+        slug,
+        ...attributes,
+      })
 
       // Convert markdown body to html
       const htmlBody = md.render(body)
 
-      // Generate the full post body (adds title, date, etc)
+      // Generate the full post html (adds title, date, etc)
       ejs.renderFile('./layouts/post.ejs', { body: String(htmlBody), ...attributes}, function(err, post) {
         if (err) throw err
-        fs.writeFileSync(`./src/blog/${slugify(attributes.title)}.html`, post)
+        fs.writeFileSync(`./src/blog/${slug}.html`, post)
         console.log(`Finished converting ${attributes.title}!`);
       })
     })
   })
 })
+
+// TODO: fix race condition
+setTimeout(() => {
+  // Generate the blog index page
+  ejs.renderFile('./layouts/blogIndex.ejs', { blogData }, function (err, html) {
+    if (err) throw err
+    fs.writeFileSync(`./src/index.html`, html)
+    console.log(`Finished converting blog index!`);
+  })
+}, 2000);
 
