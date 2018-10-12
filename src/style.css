@@ -1,7 +1,13 @@
 body {
-  padding: 0;
+  padding: 20px;
   margin: 0;
   font-family: Verdana, 'Trebuchet MS', sans-serif;
   font-size: 100%;
   height: 100%;
+}
+
+.blog-card {
+  background-color: #ddd;
+  margin: 20px 0;
+  padding: 20px;
 }
