@@ -8,7 +8,8 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, 'build')
+    path: path.resolve(__dirname, 'build'),
+    publicPath: ASSET_PATH,
   },
   module: {
     rules: [
@@ -37,6 +38,31 @@ module.exports = {
           'extract-loader',
           { loader: 'html-loader', options: { minimize: true } },
         ]
+      },
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: 'url-loader', // default fallback is file-loader
+            options: {
+              limit: 8000,
+              name: '[path][name].[hash].[ext]',
+              // context: 'src',
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[path][name].[hash].[ext]',
+              // context: 'src',
+            }
+          },
+        ],
       },
     ],
   },

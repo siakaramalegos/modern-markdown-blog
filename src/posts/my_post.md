@@ -29,3 +29,6 @@ Code block here (JavaScript):
 ```javascript
 const dog = 'Harry'
 ```
+
+Here is an image:
+![Black pug in a striped shirt with a bold red background](../images/sofa_pug.jpg "Logo Title Text 1")

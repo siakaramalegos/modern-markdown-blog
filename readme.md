@@ -29,6 +29,14 @@ Fork and clone the repo, `cd` into the directory, then run your preferred packag
 
 You may re-generate your posts while the dev server is running. Just open a new tab in your terminal to do so. The dev server does not do hot-reloading, so after the generation is complete and webpack has finished re-bundling, you can refresh the localhost page to see the updated content.
 
+### Highlight Themes
+
+This project uses [Highlight.js](https://highlightjs.org) for syntax highlighting. The `github` theme is already set up, but you can easily switch to another.
+
+1. Find your preferred theme in the [demo here](https://highlightjs.org/static/demo/).
+2. Find how they spell the file name for your chosen theme [here](https://github.com/highlightjs/highlight.js/tree/master/src/styles).
+3. In `src/index.js` and `layouts/post.ejs`, replace `github` with your preferred theme.
+
 ## Github Pages
 
 To deploy to Github pages, in `package.json`, in the `gh-pages` script, modify the `ASSET_PATH` to be the name of your repo on Github. Then run `npm run gh-pages` to both build and deploy the `/build/` folder to your `gh-pages` branch on Github.

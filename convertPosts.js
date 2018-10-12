@@ -8,6 +8,7 @@ const ejs = require('ejs')
 
 // Initialize markdown function with syntax highlighting by highlight.js
 var md = new Remarkable({
+  langPrefix: 'hljs language-',
   highlight: function (str, lang) {
     if (lang && hljs.getLanguage(lang)) {
       try {
@@ -37,12 +38,12 @@ function slugify(text) {
 
 let blogData = []
 
-glob('**/*.md', {cwd: './posts/'}, function(err, files) {
+glob('**/*.md', {cwd: './src/posts/'}, function(err, files) {
   if (err) throw err
 
   // Construct html file for each post
   files.forEach((file) => {
-    fs.readFile(path.resolve(__dirname, `./posts/${file}`), 'utf8', function (err, data) {
+    fs.readFile(path.resolve(__dirname, `./src/posts/${file}`), 'utf8', function (err, data) {
       if (err) throw err
 
       // Separate the front matter attributes from the body of the markdown
@@ -57,7 +58,7 @@ glob('**/*.md', {cwd: './posts/'}, function(err, files) {
       const htmlBody = md.render(body)
 
       // Generate the full post html (adds title, date, etc)
-      ejs.renderFile('./layouts/post.ejs', { body: String(htmlBody), ...attributes}, function(err, post) {
+      ejs.renderFile('./src/layouts/post.ejs', { body: String(htmlBody), ...attributes}, function(err, post) {
         if (err) throw err
         fs.writeFileSync(`./src/blog/${slug}.html`, post)
         console.log(`Finished converting ${attributes.title}!`);
@@ -69,7 +70,7 @@ glob('**/*.md', {cwd: './posts/'}, function(err, files) {
 // TODO: fix race condition
 setTimeout(() => {
   // Generate the blog index page
-  ejs.renderFile('./layouts/blogIndex.ejs', { blogData }, function (err, html) {
+  ejs.renderFile('./src/layouts/blogIndex.ejs', { blogData }, function (err, html) {
     if (err) throw err
     fs.writeFileSync(`./src/index.html`, html)
     console.log(`Finished converting blog index!`);
