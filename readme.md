@@ -24,6 +24,8 @@ You can view a deployed sample [here](https://siakaramalegos.github.io/modern-ma
 
 Fork and clone the repo, `cd` into the directory, then run your preferred package manager or `npm install`.
 
+Imagemagick is a dependency, so you also need to install it. To find out if it's installed, type `which magick` in your terminal. To install (on Mac), `brew install imagemagick`.
+
 1. Write your markdown post in the `src/posts/` folder.
 2. At the top of your file, include the blog's data in YAML front matter like so:
   ```yaml
