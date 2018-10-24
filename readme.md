@@ -3,19 +3,28 @@
 This is a markdown blog starter with a modern build process to create super-fast website with as little JavaScript as possible. Think of it like Jekyll + webpack.
 
 The goals:
+- Compile to static pages with no backend.
 - Write blog posts in markdown because it's more fun.
 - Automatically generate the blog post pages.
 - Automatically generate the blog post index page.
 - Use as little runtime JavaScript as possible (preferably none).
 - Make it as fast as possible (e.g., automatically generate responsive images and perhaps webp formats too)
+- Learn new things as I build.
 
 You can view a deployed sample [here](https://siakaramalegos.github.io/modern-markdown-blog/).
+
+## Primary Dependencies
+
+- [Embedded JavaScript templates (ejs)](https://github.com/mde/ejs)
+- [Remarkable](https://github.com/jonschlinkert/remarkable) for Markdown support
+- [Highlight.js](https://highlightjs.org/) for syntax highlighting
+- [Imagemin](https://github.com/imagemin/imagemin) for image minification
 
 ## How to Use
 
 Fork and clone the repo, `cd` into the directory, then run your preferred package manager or `npm install`.
 
-1. Write your markdown post in the `/posts/` folder.
+1. Write your markdown post in the `src/posts/` folder.
 2. At the top of your file, include the blog's data in YAML front matter like so:
   ```yaml
   ---
@@ -35,7 +44,7 @@ This project uses [Highlight.js](https://highlightjs.org) for syntax highlightin
 
 1. Find your preferred theme in the [demo here](https://highlightjs.org/static/demo/).
 2. Find how they spell the file name for your chosen theme [here](https://github.com/highlightjs/highlight.js/tree/master/src/styles).
-3. In `src/index.js` and `layouts/post.ejs`, replace `github` with your preferred theme.
+3. In `src/index.js` and `src/layouts/post.ejs`, replace `github` with your preferred theme.
 
 ## Github Pages
 

@@ -60,7 +60,7 @@ glob('**/*.md', {cwd: './src/posts/'}, function(err, files) {
       // Generate the full post html (adds title, date, etc)
       ejs.renderFile('./src/layouts/post.ejs', { body: String(htmlBody), ...attributes}, function(err, post) {
         if (err) throw err
-        fs.writeFileSync(`./src/blog/${slug}.html`, post)
+        fs.writeFileSync(`./src/${slug}.html`, post)
         console.log(`Finished converting ${attributes.title}!`);
       })
     })

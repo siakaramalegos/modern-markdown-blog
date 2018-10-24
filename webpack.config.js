@@ -2,7 +2,8 @@ const path = require('path');
 const webpack = require('webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const nodeModulesPath = path.resolve(__dirname, 'node_modules');
-const ASSET_PATH = process.env.ASSET_PATH || '/'
+const originalImagesPath = path.resolve(__dirname, 'src/images/originals');
+const ASSET_PATH = process.env.ASSET_PATH || ''
 
 module.exports = {
   entry: './src/index.js',
@@ -46,13 +47,14 @@ module.exports = {
             loader: 'url-loader', // default fallback is file-loader
             options: {
               limit: 8000,
-              name: '/images[name].[hash].[ext]',
+              name: '/images/[name].[hash].[ext]',
             },
           },
         ],
       },
       {
         test: /\.(png|jpg|gif)$/,
+        exclude: [originalImagesPath],
         use: [
           {
             loader: 'file-loader',
