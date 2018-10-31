@@ -34,7 +34,21 @@
 </div>
   
 
-  <img src="./images/sofa_pug.jpg" alt="puppy in a striped shirt" />
+  <picture>
+  <source
+    type="image/webp"
+    srcset="./images/300_sofa_pug.jpg.webp 300w,
+      ./images/600_sofa_pug.jpg.webp 600w" />
+  <img
+    srcset="./images/300_sofa_pug.jpg 300w,
+      ./images/600_sofa_pug.jpg 600w"
+    src="./images/600_sofa_pug.jpg"
+    sizes="(max-width: 320px) 280px,
+      (max-width: 640px) 580px,
+      1000px"
+    alt="puppy in a striped shirt" />
+</picture>
+
   <p>I am a footer</p>
 
 </body>

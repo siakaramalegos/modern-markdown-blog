@@ -1,16 +1,14 @@
 <picture>
   <source
     type="image/webp"
-    srcset="<%= image.name %>_300.webp 300w,
-      <%= image.name %>_600.webp 600w,
-      <%= image.name %>_900.webp 900w">
+    srcset="./images/300_<%= name %>.webp 300w,
+      ./images/600_<%= name %>.webp 600w" />
   <img
-    srcset="<%= image.name %>_300.jpg 300w,
-      <%= image.name %>_600.jpg 600w,
-      <%= image.name %>_900.jpg 900w"
-    src="<%= image.name %>.jpg"
+    srcset="./images/300_<%= name %> 300w,
+      ./images/600_<%= name %> 600w"
+    src="./images/600_<%= name %>"
     sizes="(max-width: 320px) 280px,
       (max-width: 640px) 580px,
       1000px"
-    alt="<%= image.alt %>" />
+    alt="<%= alt %>" />
 </picture>

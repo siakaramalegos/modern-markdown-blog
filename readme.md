@@ -18,13 +18,13 @@ You can view a deployed sample [here](https://siakaramalegos.github.io/modern-ma
 - [Embedded JavaScript templates (ejs)](https://github.com/mde/ejs)
 - [Remarkable](https://github.com/jonschlinkert/remarkable) for Markdown support
 - [Highlight.js](https://highlightjs.org/) for syntax highlighting
-- [Imagemin](https://github.com/imagemin/imagemin) for image minification
+- [Sharp](http://sharp.dimens.io/en/stable/) for image processing
 
 ## How to Use
 
 Fork and clone the repo, `cd` into the directory, then run your preferred package manager or `npm install`.
 
-Imagemagick is a dependency, so you also need to install it. To find out if it's installed, type `which magick` in your terminal. To install (on Mac), `brew install imagemagick`.
+### Write a Post
 
 1. Write your markdown post in the `src/posts/` folder.
 2. At the top of your file, include the blog's data in YAML front matter like so:
@@ -39,6 +39,10 @@ Imagemagick is a dependency, so you also need to install it. To find out if it's
 4. Build with webpack! Run development mode with `npm start` and view the output at http://localhost:8080, or run the production build with `npm run build`. The `/build/` folder will contain the static production build ready for deployment.
 
 You may re-generate your posts while the dev server is running. Just open a new tab in your terminal to do so. The dev server does not do hot-reloading, so after the generation is complete and webpack has finished re-bundling, you can refresh the localhost page to see the updated content.
+
+### Add Images to Your Post
+
+<!-- TODO: how to use ejs -->
 
 ### Highlight Themes
 

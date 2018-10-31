@@ -5,10 +5,10 @@ const path = require('path')
 const Remarkable = require('remarkable')
 const hljs = require('highlight.js')
 const ejs = require('ejs')
-const im = require('imagemagick')
+const processImages = require('./processImages').processImages
 
 // Initialize markdown function with syntax highlighting by highlight.js
-var md = new Remarkable({
+const md = new Remarkable({
   langPrefix: 'hljs language-',
   highlight: function (str, lang) {
     if (lang && hljs.getLanguage(lang)) {
@@ -78,19 +78,9 @@ setTimeout(() => {
   })
 }, 2000);
 
-// Generate image sets
-glob('**/*.jpg', { cwd: './src/images/originals/' }, function (err, files) {
-  if (err) throw err
+processImages()
 
-  // Construct html file for each post
-  files.forEach((file) => {
-    im.resize({
-      srcData: fs.readFileSync(path.resolve(__dirname, `./src/images/originals/${file}`), 'binary'),
-      dstPath: `./src/images/small_${file}`,
-      width: 256
-    }, function (err, stdout, stderr) {
-      if (err) throw err;
-      console.log(`resized ${file} to fit within 256x256px`);
-    });
-  })
-})
+      // .then(() => {
+      //   // move original?
+      // fs.readFileSync(path.resolve(__dirname, `./src/images/originals/${file}`), 'binary')
+      // })
